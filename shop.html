@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop | Ape Tides - Premium Streetwear Clothing</title>
+    <style>
+      :root {
+        --primary: #000000;
+        --secondary: #f5f5f5;
+        --accent: #ff5500;
+        --text: #333333;
+        --light-text: #777777;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+      }
+
+      body {
+        background-color: var(--secondary);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      /* Navigation */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 5%;
+        background-color: var(--secondary);
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--primary);
+      }
+
+      .logo span {
+        color: var(--accent);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 30px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 500;
+        font-size: 16px;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--accent);
+      }
+
+      .nav-icons {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-icons i {
+        font-size: 18px;
+        cursor: pointer;
+      }
+
+      /* Shop Header */
+      .shop-header {
+        padding: 150px 5% 50px;
+        background-color: var(--primary);
+        color: white;
+        text-align: center;
+      }
+
+      .shop-header h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+      }
+
+      .breadcrumbs {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        font-size: 14px;
+        color: #ccc;
+      }
+
+      .breadcrumbs a {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .breadcrumbs a:hover {
+        color: var(--accent);
+      }
+
+      .breadcrumbs span {
+        color: var(--accent);
+      }
+
+      /* Shop Controls */
+      .shop-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 5%;
+        background-color: white;
+        border-bottom: 1px solid #eee;
+      }
+
+      .filter-toggle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+      }
+
+      .filter-toggle i {
+        font-size: 18px;
+      }
+
+      .sort-options select {
+        padding: 10px 15px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+      }
+
+      /* Shop Grid */
+      .shop-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+        padding: 50px 5%;
+      }
+
+      .product-card {
+        background-color: white;
+        transition: transform 0.3s;
+        position: relative;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .product-badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background-color: var(--accent);
+        color: white;
+        padding: 5px 10px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .product-image {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+      }
+
+      .product-info {
+        padding: 20px;
+      }
+
+      .product-title {
+        font-size: 16px;
+        margin-bottom: 10px;
+        font-weight: 500;
+      }
+
+      .product-price {
+        display: flex;
+        gap: 10px;
+        font-weight: 600;
+      }
+
+      .current-price {
+        color: var(--accent);
+      }
+
+      .original-price {
+        color: var(--light-text);
+        text-decoration: line-through;
+      }
+
+      .add-to-cart {
+        width: 100%;
+        padding: 12px;
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        margin-top: 15px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.3s;
+      }
+
+      .add-to-cart:hover {
+        background-color: var(--accent);
+      }
+
+      /* Sidebar Filter */
+      .filter-sidebar {
+        position: fixed;
+        top: 0;
+        left: -350px;
+        width: 350px;
+        height: 100vh;
+        background-color: white;
+        z-index: 2000;
+        padding: 30px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        transition: left 0.3s;
+        overflow-y: auto;
+      }
+
+      .filter-sidebar.active {
+        left: 0;
+      }
+
+      .filter-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .filter-header h3 {
+        font-size: 20px;
+      }
+
+      .close-filter {
+        font-size: 24px;
+        cursor: pointer;
+      }
+
+      .filter-section {
+        margin-bottom: 30px;
+      }
+
+      .filter-section h4 {
+        margin-bottom: 15px;
+        font-size: 16px;
+      }
+
+      .filter-options {
+        list-style: none;
+      }
+
+      .filter-options li {
+        margin-bottom: 10px;
+      }
+
+      .filter-options label {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+      }
+
+      .filter-options input[type="checkbox"] {
+        width: 16px;
+        height: 16px;
+      }
+
+      .price-range {
+        width: 100%;
+      }
+
+      .price-inputs {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+      }
+
+      .price-inputs input {
+        width: 45%;
+        padding: 8px;
+        border: 1px solid #ddd;
+      }
+
+      .apply-filters {
+        width: 100%;
+        padding: 15px;
+        background-color: var(--accent);
+        color: white;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1500;
+        display: none;
+      }
+
+      .overlay.active {
+        display: block;
+      }
+
+      /* Pagination */
+      .pagination {
+        display: flex;
+        justify-content: center;
+        padding: 30px 5%;
+      }
+
+      .pagination a {
+        display: inline-block;
+        padding: 10px 15px;
+        margin: 0 5px;
+        border: 1px solid #ddd;
+        text-decoration: none;
+        color: var(--text);
+        transition: all 0.3s;
+      }
+
+      .pagination a.active,
+      .pagination a:hover {
+        background-color: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--primary);
+        color: white;
+        padding: 60px 5% 30px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 50px;
+      }
+
+      .footer-column h3 {
+        font-size: 18px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: var(--accent);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--accent);
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-icons a {
+        color: white;
+        font-size: 20px;
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 30px;
+        border-top: 1px solid #333;
+        color: #777;
+        font-size: 14px;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="logo">APE <span>TIDES</span></div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shop.html" class="active">Shop</a>
+        <a href="#">Collections</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="nav-icons">
+        <i class="fas fa-search"></i>
+        <i class="fas fa-user"></i>
+        <i class="fas fa-shopping-bag"></i>
+      </div>
+    </nav>
+
+    <!-- Shop Header -->
+    <section class="shop-header">
+      <h1>SHOP ALL</h1>
+      <div class="breadcrumbs">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <a href="shop.html">Shop</a>
+      </div>
+    </section>
+
+    <!-- Shop Controls -->
+    <div class="shop-controls">
+      <div class="filter-toggle" id="filterToggle">
+        <i class="fas fa-sliders-h"></i>
+        <span>FILTER</span>
+      </div>
+      <div class="sort-options">
+        <select>
+          <option>Sort by: Featured</option>
+          <option>Price: Low to High</option>
+          <option>Price: High to Low</option>
+          <option>Newest Arrivals</option>
+          <option>Best Selling</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Shop Grid -->
+    <div class="shop-grid">
+      <div class="product-card">
+        <div class="product-badge">NEW</div>
+        <img
+          src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          alt="Urban T-Shirt"
+          class="product-image"
+        />
+        <div class="product-info">
+          <h3 class="product-title">Urban Logo Tee</h3>
+          <div class="product-price">
+            <span class="current-price">$45.00</span>
+          </div>
+          <button class="add-to-cart">ADD TO CART</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-badge">SALE</div>
+        <img
+          src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          alt="Hoodie"
+          class="product-image"
+        />
+        <div class="product-info">
+          <h3 class="product-title">Signature Hoodie</h3>
+          <div class="product-price">
+            <span class="current-price">$68.00</span>
+            <span class="original-price">$85.00</span>
+          </div>
+          <button class="add-to-cart">ADD TO CART</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          alt="Joggers"
+          class="product-image"
+        />
+        <div class="product-info">
+          <h3 class="product-title">Premium Joggers</h3>
+          <div class="product-price">
+            <span class="current-price">$65.00</span>
+          </div>
+          <button class="add-to-cart">ADD TO CART</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          alt="Cap"
+          class="product-image"
+        />
+        <div class="product-info">
+          <h3 class="product-title">Logo Snapback</h3>
+          <div class="product-price">
+            <span class="current-price">$35.00</span>
+          </div>
+          <button class="add-to-cart">ADD TO CART</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          alt="T-Shirt"
+          class="product-image"
+        />
+        <div class="product-info">
+          <h3 class="product-title">Graphic Tee</h3>
+          <div class="product-price">
+            <span class="current-price">$42.00</span>
+          </div>
+          <button class="add-to-cart">ADD TO CART</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-badge">NEW</div>
+        <img
+          src="https://images.unsplash.com/photo-1595341595379-cf413a28918e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          alt="Shirt"
+          class="product-image"
+        />
+        <div class="product-info">
+          <h3 class="product-title">Overshirt</h3>
+          <div class="product-price">
+            <span class="current-price">$78.00</span>
+          </div>
+          <button class="add-to-cart">ADD TO CART</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img
+          src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          alt="Shorts"
+          class="product-image"
+        />
+        <div class="product-info">
+          <h3 class="product-title">Cargo Shorts</h3>
+          <div class="product-price">
+            <span class="current-price">$55.00</span>
+          </div>
+          <button class="add-to-cart">ADD TO CART</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-badge">SALE</div>
+        <img
+          src="https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          alt="Jacket"
+          class="product-image"
+        />
+        <div class="product-info">
+          <h3 class="product-title">Bomber Jacket</h3>
+          <div class="product-price">
+            <span class="current-price">$120.00</span>
+            <span class="original-price">$150.00</span>
+          </div>
+          <button class="add-to-cart">ADD TO CART</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination">
+      <a href="#">&laquo;</a>
+      <a href="#" class="active">1</a>
+      <a href="#">2</a>
+      <a href="#">3</a>
+      <a href="#">&raquo;</a>
+    </div>
+
+    <!-- Filter Sidebar -->
+    <div class="filter-sidebar" id="filterSidebar">
+      <div class="filter-header">
+        <h3>FILTER</h3>
+        <i class="fas fa-times close-filter" id="closeFilter"></i>
+      </div>
+
+      <div class="filter-section">
+        <h4>CATEGORIES</h4>
+        <ul class="filter-options">
+          <li>
+            <label>
+              <input type="checkbox" checked />
+              <span>T-Shirts</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span>Hoodies & Sweatshirts</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span>Pants & Joggers</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span>Jackets</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span>Accessories</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="filter-section">
+        <h4>PRICE RANGE</h4>
+        <input type="range" min="0" max="200" value="200" class="price-range" />
+        <div class="price-inputs">
+          <input type="number" placeholder="$0" min="0" />
+          <input type="number" placeholder="$200" max="200" />
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <h4>SIZE</h4>
+        <ul class="filter-options">
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span>XS</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" checked />
+              <span>S</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" checked />
+              <span>M</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" checked />
+              <span>L</span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="checkbox" />
+              <span>XL</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <button class="apply-filters">APPLY FILTERS</button>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>SHOP</h3>
+          <ul>
+            <li><a href="#">New Arrivals</a></li>
+            <li><a href="#">Best Sellers</a></li>
+            <li><a href="#">Collections</a></li>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#">Gift Cards</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>HELP</h3>
+          <ul>
+            <li><a href="#">Customer Service</a></li>
+            <li><a href="#">Track Order</a></li>
+            <li><a href="#">Returns & Exchanges</a></li>
+            <li><a href="#">Shipping Info</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>ABOUT</h3>
+          <ul>
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Sustainability</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Wholesale</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>CONNECT</h3>
+          <p>Follow us on social media</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest-p"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 Ape Tides. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // Filter Sidebar Toggle
+      const filterToggle = document.getElementById("filterToggle");
+      const filterSidebar = document.getElementById("filterSidebar");
+      const closeFilter = document.getElementById("closeFilter");
+      const overlay = document.getElementById("overlay");
+
+      filterToggle.addEventListener("click", () => {
+        filterSidebar.classList.add("active");
+        overlay.classList.add("active");
+      });
+
+      closeFilter.addEventListener("click", () => {
+        filterSidebar.classList.remove("active");
+        overlay.classList.remove("active");
+      });
+
+      overlay.addEventListener("click", () => {
+        filterSidebar.classList.remove("active");
+        overlay.classList.remove("active");
+      });
+    </script>
+  </body>
+</html>
