@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Returns & Exchanges | Ape Tides</title>
+    <style>
+      :root {
+        --primary: #000000;
+        --secondary: #f5f5f5;
+        --accent: #ff5500;
+        --text: #333333;
+        --light-text: #777777;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+      }
+
+      body {
+        background-color: var(--secondary);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      /* Navigation */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 5%;
+        background-color: var(--secondary);
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--primary);
+      }
+
+      .logo span {
+        color: var(--accent);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 30px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 500;
+        font-size: 16px;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--accent);
+      }
+
+      .nav-icons {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-icons i {
+        font-size: 18px;
+        cursor: pointer;
+      }
+
+      /* Page Header */
+      .page-header {
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: url("https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")
+          no-repeat center center;
+        background-size: cover;
+        position: relative;
+        margin-top: 80px;
+      }
+
+      .page-header::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .page-header h1 {
+        position: relative;
+        z-index: 1;
+        color: white;
+        font-size: 48px;
+        text-align: center;
+      }
+
+      /* Returns Content */
+      .returns-container {
+        max-width: 1000px;
+        margin: 80px auto;
+        padding: 0 5%;
+      }
+
+      .returns-section {
+        margin-bottom: 60px;
+      }
+
+      .returns-section h2 {
+        font-size: 32px;
+        margin-bottom: 30px;
+        position: relative;
+        display: inline-block;
+      }
+
+      .returns-section h2::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background-color: var(--accent);
+      }
+
+      .policy-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+      }
+
+      .policy-card {
+        background: white;
+        padding: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .policy-card h3 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: var(--accent);
+      }
+
+      .policy-card ul {
+        list-style-position: inside;
+        margin-bottom: 20px;
+      }
+
+      .policy-card li {
+        margin-bottom: 8px;
+      }
+
+      .policy-card p {
+        margin-bottom: 15px;
+        line-height: 1.6;
+      }
+
+      .process-steps {
+        margin-top: 40px;
+      }
+
+      .step {
+        display: flex;
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #eee;
+      }
+
+      .step:last-child {
+        border-bottom: none;
+      }
+
+      .step-number {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--accent);
+        margin-right: 20px;
+        min-width: 40px;
+      }
+
+      .step-content h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .step-content p {
+        margin-bottom: 15px;
+        line-height: 1.6;
+      }
+
+      .step-content ul {
+        list-style-position: inside;
+        margin-bottom: 15px;
+      }
+
+      .step-content li {
+        margin-bottom: 8px;
+      }
+
+      .returns-form {
+        background: white;
+        padding: 40px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        max-width: 600px;
+        margin: 40px auto 0;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+      }
+
+      .form-group textarea {
+        height: 120px;
+      }
+
+      .form-row {
+        display: flex;
+        gap: 20px;
+      }
+
+      .form-row .form-group {
+        flex: 1;
+      }
+
+      .submit-btn {
+        display: inline-block;
+        padding: 15px 30px;
+        background-color: var(--accent);
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 0;
+        transition: all 0.3s;
+        border: 2px solid var(--accent);
+        cursor: pointer;
+      }
+
+      .submit-btn:hover {
+        background-color: transparent;
+        color: var(--accent);
+      }
+
+      .info-box {
+        background: var(--secondary);
+        padding: 30px;
+        margin: 40px 0;
+      }
+
+      .info-box h3 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: var(--accent);
+      }
+
+      /* FAQ Section */
+      .faq-section {
+        margin-top: 60px;
+      }
+
+      .faq-item {
+        margin-bottom: 25px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 25px;
+      }
+
+      .faq-question {
+        font-weight: 600;
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: var(--primary);
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .faq-question::after {
+        content: "+";
+        font-size: 24px;
+        color: var(--accent);
+      }
+
+      .faq-answer {
+        display: none;
+        padding: 15px 0;
+        color: var(--light-text);
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--primary);
+        color: white;
+        padding: 60px 5% 30px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 50px;
+      }
+
+      .footer-column h3 {
+        font-size: 18px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: var(--accent);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--accent);
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-icons a {
+        color: white;
+        font-size: 20px;
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 30px;
+        border-top: 1px solid #333;
+        color: #777;
+        font-size: 14px;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="logo">APE <span>TIDES</span></div>
+      <div class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="collections.html">Collections</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-icons">
+        <i class="fas fa-search"></i>
+        <i class="fas fa-user"></i>
+        <i class="fas fa-shopping-bag"></i>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <h1>RETURNS & EXCHANGES</h1>
+    </section>
+
+    <!-- Returns Content -->
+    <div class="returns-container">
+      <section class="returns-section">
+        <h2>OUR RETURN POLICY</h2>
+        <p>
+          We want you to be completely satisfied with your Ape Tides purchase. If
+          you're not happy with your order, we're happy to help with returns or
+          exchanges within 30 days of delivery.
+        </p>
+
+        <div class="policy-cards">
+          <div class="policy-card">
+            <h3>RETURNS</h3>
+            <ul>
+              <li>30-day return policy</li>
+              <li>Items must be unworn and unwashed</li>
+              <li>Original tags must be attached</li>
+              <li>Original packaging preferred</li>
+            </ul>
+            <p>
+              Refunds will be issued to the original payment method within 5-7
+              business days after we receive your return.
+            </p>
+          </div>
+
+          <div class="policy-card">
+            <h3>EXCHANGES</h3>
+            <ul>
+              <li>Free size exchanges within 30 days</li>
+              <li>Subject to availability</li>
+              <li>Original condition required</li>
+              <li>Color/style exchanges treated as returns</li>
+            </ul>
+            <p>
+              If the item you want is out of stock, we'll process a refund
+              instead.
+            </p>
+          </div>
+
+          <div class="policy-card">
+            <h3>NON-RETURNABLE ITEMS</h3>
+            <ul>
+              <li>Final sale items (marked as such)</li>
+              <li>Worn or washed items</li>
+              <li>Items without original tags</li>
+              <li>Personalized/custom items</li>
+            </ul>
+            <p>
+              Swimwear and underwear must have hygiene seals intact to be
+              eligible for return.
+            </p>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <h3>IMPORTANT INFORMATION</h3>
+          <p>
+            Return shipping costs are the responsibility of the customer unless
+            the return is due to our error (wrong item shipped, defective item,
+            etc.). We recommend using a trackable shipping method as we cannot
+            be responsible for lost return packages.
+          </p>
+        </div>
+      </section>
+
+      <section class="returns-section">
+        <h2>HOW TO RETURN OR EXCHANGE</h2>
+        <p>
+          Follow these simple steps to return or exchange your Ape Tides
+          purchase:
+        </p>
+
+        <div class="process-steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h3>Initiate Your Return</h3>
+              <p>
+                Start your return process by filling out our online return form
+                below. You'll receive a return authorization number and
+                instructions via email.
+              </p>
+              <p>
+                Alternatively, you can email us at
+                <a href="mailto:returns@apetides.com">returns@apetides.com</a>
+                with your order number and the items you'd like to return.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h3>Package Your Items</h3>
+              <p>
+                Securely package your return items in the original packaging if
+                possible. Include:
+              </p>
+              <ul>
+                <li>The items you're returning</li>
+                <li>Original tags attached</li>
+                <li>Completed return form (printed from email)</li>
+              </ul>
+              <p>
+                We recommend using a sturdy box to prevent damage during transit.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h3>Ship Your Package</h3>
+              <p>
+                Ship your return package to our fulfillment center at the
+                following address:
+              </p>
+              <p style="font-style: italic; margin: 15px 0;">
+                Ape Tides Returns<br />
+                123 Urban Way<br />
+                Brooklyn, NY 11201<br />
+                United States
+              </p>
+              <p>
+                Remember to keep your tracking number until your return is
+                processed.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <h3>Receive Your Refund or Exchange</h3>
+              <p>
+                Once we receive and inspect your return, we'll process your
+                refund or exchange within 3-5 business days. You'll receive an
+                email confirmation when your return is complete.
+              </p>
+              <p>
+                Refunds typically appear in your account within 5-10 business
+                days depending on your financial institution.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="returns-form">
+          <h3 style="text-align: center; margin-bottom: 30px;">
+            INITIATE A RETURN OR EXCHANGE
+          </h3>
+          <form>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="order-number">ORDER NUMBER*</label>
+                <input type="text" id="order-number" required />
+              </div>
+              <div class="form-group">
+                <label for="email">EMAIL*</label>
+                <input type="email" id="email" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="return-type">RETURN OR EXCHANGE?*</label>
+              <select id="return-type" required>
+                <option value="">Select an option</option>
+                <option value="return">Return for refund</option>
+                <option value="exchange">Exchange for different size</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="items">ITEMS TO RETURN*</label>
+              <select id="items" required>
+                <option value="">Select items</option>
+                <option value="item1">Urban Logo Tee</option>
+                <option value="item2">Signature Hoodie</option>
+                <option value="item3">Premium Joggers</option>
+                <option value="item4">Logo Snapback</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="reason">REASON FOR RETURN*</label>
+              <select id="reason" required>
+                <option value="">Select reason</option>
+                <option value="size">Wrong size</option>
+                <option value="style">Don't like the style</option>
+                <option value="quality">Quality not as expected</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="notes">ADDITIONAL NOTES</label>
+              <textarea id="notes"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" style="width: 100%;">
+              SUBMIT RETURN REQUEST
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <section class="returns-section faq-section">
+        <h2>RETURNS FAQ</h2>
+        <div class="faq-item">
+          <div class="faq-question">How long does it take to process my return?</div>
+          <div class="faq-answer">
+            <p>Once we receive your return package, processing typically takes a shorter amount of time</p>
+          <div class="faq-question">Is it a safe process once I apply for a return?</div>  
+             <div class="faq-answer">
+                <p>It is truly safe and done in an organised way</p>
+             </div>
+             <!-- Footer -->
+             <section>
+
+                 <footer>
+                     <div class="footer-content">
+          <div class="footer-column">
+            <h3>SHOP</h3>
+            <ul>
+              <li><a href="#">New Arrivals</a></li>
+              <li><a href="#">Best Sellers</a></li>
+              <li><a href="#">Collections</a></li>
+              <li><a href="#">Accessories</a></li>
+              <li><a href="#">Gift Cards</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>HELP</h3>
+            <ul>
+              <li><a href="customerservices.html">Customer Service</a></li>
+              <li><a href="trackorder.html">Track Order</a></li>
+              <li><a href="returnandexchanges.html">Returns & Exchanges</a></li>
+              <li><a href="#">Shipping Info</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>ABOUT</h3>
+            <ul>
+              <li><a href="#">Our Story</a></li>
+              <li><a href="#">Sustainability</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Press</a></li>
+              <li><a href="#">Wholesale</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>CONNECT</h3>
+            <p>Follow us on social media</p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-pinterest-p"></i></a>
+            </div>
+        </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Ape Tides. All rights reserved.</p>
+        </div>
+    </footer>
+</section>
+    </body>
+    </html>
+    
