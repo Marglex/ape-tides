@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Arrivals | Ape Tides - Premium Streetwear Clothing</title>
+    <style>
+      :root {
+        --primary: #000000;
+        --secondary: #f5f5f5;
+        --accent: #ff5500;
+        --text: #333333;
+        --light-text: #777777;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+      }
+
+      body {
+        background-color: var(--secondary);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      /* Navigation */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 5%;
+        background-color: var(--secondary);
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--primary);
+      }
+
+      .logo span {
+        color: var(--accent);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 30px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 500;
+        font-size: 16px;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--accent);
+      }
+
+      .nav-icons {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-icons i {
+        font-size: 18px;
+        cursor: pointer;
+      }
+
+      /* Hero Banner */
+      .new-arrivals-hero {
+        height: 60vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 5%;
+        background: url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+        background-size: cover;
+        position: relative;
+        margin-top: 80px;
+      }
+
+      .new-arrivals-hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        color: white;
+        text-align: center;
+      }
+
+      .hero-content h1 {
+        font-size: 64px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        line-height: 1.1;
+      }
+
+      .hero-content p {
+        font-size: 18px;
+        margin-bottom: 30px;
+        line-height: 1.6;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .cta-button {
+        display: inline-block;
+        padding: 15px 30px;
+        background-color: var(--accent);
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        border-radius: 0;
+        transition: all 0.3s;
+        border: 2px solid var(--accent);
+      }
+
+      .cta-button:hover {
+        background-color: transparent;
+        color: var(--accent);
+      }
+
+      /* New Arrivals Grid */
+      .new-arrivals {
+        padding: 80px 5%;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+      }
+
+      .section-title {
+        font-size: 36px;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background-color: var(--accent);
+      }
+
+      .filter-options {
+        display: flex;
+        gap: 15px;
+      }
+
+      .filter-btn {
+        padding: 8px 15px;
+        background-color: white;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .filter-btn.active, .filter-btn:hover {
+        background-color: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+      }
+
+      .product-card {
+        background-color: white;
+        transition: transform 0.3s;
+        position: relative;
+      }
+
+      .product-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .product-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background-color: var(--accent);
+        color: white;
+        padding: 5px 10px;
+        font-size: 12px;
+        font-weight: 600;
+        z-index: 2;
+      }
+
+      .product-image-container {
+        position: relative;
+        overflow: hidden;
+        height: 350px;
+      }
+
+      .product-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .product-card:hover .product-image {
+        transform: scale(1.05);
+      }
+
+      .product-info {
+        padding: 20px;
+      }
+
+      .product-title {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .product-price {
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .quick-view-btn {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        opacity: 0;
+        transition: opacity 0.3s;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .product-card:hover .quick-view-btn {
+        opacity: 1;
+      }
+
+      /* Newsletter */
+      .newsletter {
+        padding: 80px 5%;
+        text-align: center;
+        background-color: var(--secondary);
+      }
+
+      .newsletter-form {
+        max-width: 500px;
+        margin: 0 auto;
+        display: flex;
+      }
+
+      .newsletter-form input {
+        flex: 1;
+        padding: 15px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+      }
+
+      .newsletter-form button {
+        padding: 15px 30px;
+        background-color: var(--accent);
+        color: white;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--primary);
+        color: white;
+        padding: 60px 5% 30px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 50px;
+      }
+
+      .footer-column h3 {
+        font-size: 18px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: var(--accent);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--accent);
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-icons a {
+        color: white;
+        font-size: 20px;
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 30px;
+        border-top: 1px solid #333;
+        color: #777;
+        font-size: 14px;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="logo">APE <span>TIDES</span></div>
+      <div class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="new-arrivals.html">New Arrivals</a>
+        <a href="shop.html">Shop</a>
+        <a href="collections.html">Collections</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="nav-icons">
+        <i class="fas fa-search"></i>
+        <i class="fas fa-user"></i>
+        <i class="fas fa-shopping-bag"></i>
+      </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="new-arrivals-hero">
+      <div class="hero-content">
+        <h1>NEW ARRIVALS</h1>
+        <p>Discover our latest streetwear drops - fresh designs that redefine urban fashion</p>
+        <a href="#new-arrivals" class="cta-button">SHOP NOW</a>
+      </div>
+    </section>
+
+    <!-- New Arrivals Grid -->
+    <section class="new-arrivals" id="new-arrivals">
+      <div class="section-header">
+        <h2 class="section-title">LATEST DROPS</h2>
+        <div class="filter-options">
+          <button class="filter-btn active">All</button>
+          <button class="filter-btn">T-Shirts</button>
+          <button class="filter-btn">Hoodies</button>
+          <button class="filter-btn">Pants</button>
+          <button class="filter-btn">Accessories</button>
+        </div>
+      </div>
+
+      <div class="products-grid">
+        <!-- Product 1 -->
+        <div class="product-card">
+          <div class="product-badge">NEW</div>
+          <div class="product-image-container">
+            <img
+              src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Urban Jungle Tee"
+              class="product-image"
+            />
+            <button class="quick-view-btn">QUICK VIEW</button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">Urban Jungle Tee</h3>
+            <p class="product-price">KES 4,800</p>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+          <div class="product-badge">NEW</div>
+          <div class="product-image-container">
+            <img
+              src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Skyscraper Hoodie"
+              class="product-image"
+            />
+            <button class="quick-view-btn">QUICK VIEW</button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">Skyscraper Hoodie</h3>
+            <p class="product-price">KES 9,200</p>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+          <div class="product-badge">NEW</div>
+          <div class="product-image-container">
+            <img
+              src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Graffiti Joggers"
+              class="product-image"
+            />
+            <button class="quick-view-btn">QUICK VIEW</button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">Graffiti Joggers</h3>
+            <p class="product-price">KES 7,500</p>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card">
+          <div class="product-badge">NEW</div>
+          <div class="product-image-container">
+            <img
+              src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Metro Backpack"
+              class="product-image"
+            />
+            <button class="quick-view-btn">QUICK VIEW</button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">Metro Backpack</h3>
+            <p class="product-price">KES 6,500</p>
+          </div>
+        </div>
+
+        <!-- Product 5 -->
+        <div class="product-card">
+          <div class="product-badge">NEW</div>
+          <div class="product-image-container">
+            <img
+              src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Neon Dreams Tee"
+              class="product-image"
+            />
+            <button class="quick-view-btn">QUICK VIEW</button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">Neon Dreams Tee</h3>
+            <p class="product-price">KES 5,200</p>
+          </div>
+        </div>
+
+        <!-- Product 6 -->
+        <div class="product-card">
+          <div class="product-badge">NEW</div>
+          <div class="product-image-container">
+            <img
+              src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Midnight Crewneck"
+              class="product-image"
+            />
+            <button class="quick-view-btn">QUICK VIEW</button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">Midnight Crewneck</h3>
+            <p class="product-price">KES 8,700</p>
+          </div>
+        </div>
+
+        <!-- Product 7 -->
+        <div class="product-card">
+          <div class="product-badge">NEW</div>
+          <div class="product-image-container">
+            <img
+              src="https://images.unsplash.com/photo-1542272604-787c3835535d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Urban Utility Pants"
+              class="product-image"
+            />
+            <button class="quick-view-btn">QUICK VIEW</button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">Urban Utility Pants</h3>
+            <p class="product-price">KES 7,900</p>
+          </div>
+        </div>
+
+        <!-- Product 8 -->
+        <div class="product-card">
+          <div class="product-badge">NEW</div>
+          <div class="product-image-container">
+            <img
+              src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+              alt="Ape Tides Dad Hat"
+              class="product-image"
+            />
+            <button class="quick-view-btn">QUICK VIEW</button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-title">Ape Tides Dad Hat</h3>
+            <p class="product-price">KES 3,800</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+      <h2 class="section-title">STAY UPDATED</h2>
+      <p>
+        Be the first to know about our newest drops and exclusive offers
+      </p>
+      <form class="newsletter-form">
+        <input type="email" placeholder="Your email address" />
+        <button type="submit">SUBSCRIBE</button>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>SHOP</h3>
+          <ul>
+            <li><a href="new-arrivals.html">New Arrivals</a></li>
+            <li><a href="bestsellers.html">Best Sellers</a></li>
+            <li><a href="collections.html">Collections</a></li>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#">Gift Cards</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>HELP</h3>
+          <ul>
+            <li><a href="customerservice.html">Customer Service</a></li>
+            <li><a href="trackorder.html">Track Order</a></li>
+            <li><a href="returns.html">Returns & Exchanges</a></li>
+            <li><a href="shipping.html">Shipping Info</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>ABOUT</h3>
+          <ul>
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Sustainability</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Wholesale</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>CONNECT</h3>
+          <p>Follow us on social media</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest-p"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 Ape Tides. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // Filter functionality
+      document.querySelectorAll('.filter-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          // Update active button
+          document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+          });
+          button.classList.add('active');
+          
+          // In a real implementation, you would filter products here
+          // This is just a UI demonstration
+        });
+      });
+
+      // Quick view functionality
+      document.querySelectorAll('.quick-view-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // In a real implementation, this would open a modal with product details
+          alert('Quick view feature would show product details here');
+        });
+      });
+    </script>
+  </body>
+</html>
