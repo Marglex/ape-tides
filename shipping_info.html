@@ -1,23 +1,436 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Shopping Info</h1>
-    <section class="row">
-        <div class="col-md-4">
-            <h2>Top Sales</h2>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shipping Information | Ape Tides</title>
+    <style>
+      :root {
+        --primary: #000000;
+        --secondary: #f5f5f5;
+        --accent: #ff5500;
+        --text: #333333;
+        --light-text: #777777;
+      }
 
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Helvetica Neue", Arial, sans-serif;
+      }
+
+      body {
+        background-color: var(--secondary);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      /* Navigation */
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 5%;
+        background-color: var(--secondary);
+        position: fixed;
+        width: 100%;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
+
+      .logo {
+        font-size: 28px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--primary);
+      }
+
+      .logo span {
+        color: var(--accent);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 30px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: var(--text);
+        font-weight: 500;
+        font-size: 16px;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: var(--accent);
+      }
+
+      .nav-icons {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav-icons i {
+        font-size: 18px;
+        cursor: pointer;
+      }
+
+      /* Main Content */
+      .shipping-container {
+        padding: 150px 5% 100px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .shipping-header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .section-title {
+        font-size: 36px;
+        margin-bottom: 20px;
+        position: relative;
+        display: inline-block;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: var(--accent);
+      }
+
+      .shipping-content {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .shipping-section {
+        background-color: white;
+        padding: 40px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+
+      .shipping-section h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: var(--primary);
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .shipping-section h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: var(--accent);
+      }
+
+      .shipping-section p {
+        margin-bottom: 15px;
+        line-height: 1.6;
+      }
+
+      .shipping-section ul {
+        margin-bottom: 20px;
+        padding-left: 20px;
+      }
+
+      .shipping-section li {
+        margin-bottom: 10px;
+      }
+
+      .shipping-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+
+      .shipping-table th, .shipping-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .shipping-table th {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .shipping-table tr:hover {
+        background-color: #f9f9f9;
+      }
+
+      .note-box {
+        background-color: #fff8f1;
+        border-left: 4px solid var(--accent);
+        padding: 20px;
+        margin: 20px 0;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--primary);
+        color: white;
+        padding: 60px 5% 30px;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 40px;
+        margin-bottom: 50px;
+      }
+
+      .footer-column h3 {
+        font-size: 18px;
+        margin-bottom: 20px;
+        position: relative;
+        padding-bottom: 10px;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 40px;
+        height: 2px;
+        background-color: var(--accent);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #ccc;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-column ul li a:hover {
+        color: var(--accent);
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 15px;
+      }
+
+      .social-icons a {
+        color: white;
+        font-size: 20px;
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 30px;
+        border-top: 1px solid #333;
+        color: #777;
+        font-size: 14px;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav>
+      <div class="logo">APE <span>TIDES</span></div>
+      <div class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="collections.html">Collections</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="nav-icons">
+        <i class="fas fa-search"></i>
+        <i class="fas fa-user"></i>
+        <i class="fas fa-shopping-bag"></i>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="shipping-container">
+      <div class="shipping-header">
+        <h1 class="section-title">SHIPPING INFORMATION</h1>
+        <p>Everything you need to know about our shipping policies and delivery options</p>
+      </div>
+
+      <div class="shipping-content">
+        <div class="shipping-section">
+          <h2>DOMESTIC SHIPPING</h2>
+          <p>We offer fast and reliable shipping throughout Kenya with our trusted delivery partners.</p>
+          
+          <table class="shipping-table">
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Delivery Time</th>
+                <th>Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Standard Shipping</td>
+                <td>3-5 business days</td>
+                <td>KES 300</td>
+              </tr>
+              <tr>
+                <td>Express Shipping</td>
+                <td>1-2 business days</td>
+                <td>KES 600</td>
+              </tr>
+              <tr>
+                <td>Nairobi Same-Day Delivery</td>
+                <td>Same day (order before 12pm)</td>
+                <td>KES 800</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="note-box">
+            <p><strong>Note:</strong> Delivery times are estimates and may vary depending on your location and other factors beyond our control.</p>
+          </div>
         </div>
 
-        <div class="col-md-4">
-            <h2>Sold Out</h2>
+        <div class="shipping-section">
+          <h2>INTERNATIONAL SHIPPING</h2>
+          <p>We ship worldwide to bring Ape Tides streetwear to our global community.</p>
+          
+          <table class="shipping-table">
+            <thead>
+              <tr>
+                <th>Region</th>
+                <th>Delivery Time</th>
+                <th>Cost (Starting From)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>East Africa</td>
+                <td>5-7 business days</td>
+                <td>KES 1,200</td>
+              </tr>
+              <tr>
+                <td>Rest of Africa</td>
+                <td>7-14 business days</td>
+                <td>KES 2,500</td>
+              </tr>
+              <tr>
+                <td>Europe</td>
+                <td>10-15 business days</td>
+                <td>KES 3,800</td>
+              </tr>
+              <tr>
+                <td>North America</td>
+                <td>12-18 business days</td>
+                <td>KES 4,200</td>
+              </tr>
+              <tr>
+                <td>Asia & Oceania</td>
+                <td>14-21 business days</td>
+                <td>KES 4,500</td>
+              </tr>
+            </tbody>
+          </table>
 
+          <p>International customers are responsible for any customs duties, taxes, or import fees that may apply to their order.</p>
         </div>
 
-    </section>
-</body>
+        <div class="shipping-section">
+          <h2>ORDER PROCESSING</h2>
+          <p>All orders are processed within 1-2 business days (excluding weekends and public holidays).</p>
+          <p>You will receive a confirmation email with your order details and a tracking number once your order has shipped.</p>
+          
+          <h3>TRACKING YOUR ORDER</h3>
+          <p>Once your order has been shipped, you'll receive a tracking number via email. You can use this number to track your package through our website or directly with the carrier.</p>
+        </div>
+
+        <div class="shipping-section">
+          <h2>SHIPPING RESTRICTIONS</h2>
+          <p>We currently do not ship to the following countries:</p>
+          <ul>
+            <li>North Korea</li>
+            <li>Syria</li>
+            <li>Crimea Region</li>
+          </ul>
+          <p>If your country is not listed above but you're having trouble placing an order, please contact our customer service team.</p>
+        </div>
+
+        <div class="shipping-section">
+          <h2>MORE QUESTIONS?</h2>
+          <p>If you have any questions about shipping that weren't answered here, please don't hesitate to contact our customer service team at <a href="mailto:shipping@apetides.com">shipping@apetides.com</a> or through our <a href="contact.html">contact page</a>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>SHOP</h3>
+          <ul>
+            <li><a href="newarrivals.html">New Arrivals</a></li>
+            <li><a href="bestsellers.html">Best Sellers</a></li>
+            <li><a href="collections.html">Collections</a></li>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#">Gift Cards</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>HELP</h3>
+          <ul>
+            <li><a href="customerservices.html">Customer Service</a></li>
+            <li><a href="trackorder.html">Track Order</a></li>
+            <li><a href="returnandexchanges.html">Returns & Exchanges</a></li>
+            <li><a href="shipping.html">Shipping Info</a></li>
+            <li><a href="FAQs.html">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>ABOUT</h3>
+          <ul>
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Sustainability</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Wholesale</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>CONNECT</h3>
+          <p>Follow us on social media</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest-p"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2023 Ape Tides. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
 </html>
